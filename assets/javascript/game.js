@@ -3,9 +3,9 @@ var computerChoice = Math.floor(Math.random()*7);
 var answer = word[computerChoice];
 var wordLength = answer.length;
 var display = [wordLength];
-var victory = wordLength;
+var correct = wordLength;
 var letters = answer.split('');
-var GuessesLeft = wordLength + 5;
+var guessesLeft = wordLength + 5; 
 var output = "";
 var userLetter = "";
 var wins = 0;
@@ -15,33 +15,44 @@ var losses = 0;
 var directionsText = document.getElementById("directions-text");
 var winsText = document.getElementById("wins-text");
 var lossesText = document.getElementById("losses-text");
+var guessText = document.getElementById("guesses-left");
+
+ //console logs 
+ console.log(answer);
+ console.log(wordLength);
+ console.log(guessesLeft);
+ console.log("wins: " + wins);
+ console.log("losses: " + losses);
+
+ // displays wins, losses, and guesses left
+ winsText.textContent = "Wins: " + wins;
+ lossesText.textContent = "Losses: " + losses;
+ guessText.textContent = "Guesses Left: " + guessesLeft;
 
 
-document.onkeyup = function(event) {
-    var userChoice = event.key.toLowerCase();
-    // alert to start game by key press 
-    if (userChoice === "enter") {
-        // hide directions
-        directionsText.textContent = "";
-        // for loop that initiates game elements
-        // generates placeholders that matches the length of the chosen word 
+var layout = function() { 
+    // creates underscore placeholders for the length of chosen word
         for (var i=0; i < answer.length; i++) {
-            display[i] = "_ ";
-            output = output + display[i];
-        }
+        display[i] = "_ ";
+        output = output + display[i];
+    }   
     // inserts the placeholders on page
     document.getElementById("game").innerHTML = output;
+    //reset the output
     output ="";
-    // displays wins and losses
-    winsText.textContent = "wins: " + wins;
-    lossesText.textContent = "losses: " + losses;
-    }
-        console.log(answer);
-        console.log(wordLength);
-        console.log(GuessesLeft);
-        console.log("wins: " + wins);
-        console.log("losses: " + losses);
 }
+document.onkeyup = function(event) {
+    var userKey = event.key.toUpperCase();
+    console.log(event);
+    userLetter = userKey;
+    console.log("User Letter Chosen: " + userLetter)
+}
+window.onload = function() {
+    layout();
+}
+
+
+
 
 // ***Start Game***
 //     computer picks a random name from Array
