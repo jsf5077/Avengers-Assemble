@@ -49,11 +49,15 @@ document.onkeyup = function(event) {
         if (userLetter == letters[w]) {
             display[w] = userLetter;
             correct--;
+            console.log("letters remaining: " + correct);
         }
         output = output + display[w] + " ";
         // output = "";
         // guessesLeft--;
      }
+     guessesLeft--;
+     guessText.textContent = "Guesses Left: " + guessesLeft;
+     console.log("Guesses Left: " + guessesLeft);
      document.getElementById("game").innerHTML = output;
 }
 window.onload = function() {
