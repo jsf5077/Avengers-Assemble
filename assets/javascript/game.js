@@ -1,4 +1,4 @@
-var word = ["IRON MAN", "CAPTAIN AMERICA", "MIGHTY THOR", "INCREDIBLE HULK", "BLACK WIDOW", "NICK FURY", "HAWKEYE"]
+var word = ["IRONMAN", "CAPTAINAMERICA", "MIGHTYTHOR", "INCREDIBLEHULK", "BLACKWIDOW", "NICKFURY", "HAWKEYE"]
 var computerChoice = Math.floor(Math.random()*7);
 var answer = word[computerChoice];
 var wordLength = answer.length;
@@ -24,18 +24,16 @@ var guessText = document.getElementById("guesses-left");
  console.log("wins: " + wins);
  console.log("losses: " + losses);
 
- // displays wins, losses, and guesses left
- winsText.textContent = "Wins: " + wins;
- lossesText.textContent = "Losses: " + losses;
- guessText.textContent = "Guesses Left: " + guessesLeft;
-
-
-var layout = function() { 
+var layout = function() {
+    // displays wins, losses, and guesses left
+    winsText.textContent = "Wins: " + wins;
+    lossesText.textContent = "Losses: " + losses;
+    guessText.textContent = "Guesses Left: " + guessesLeft;
     // creates underscore placeholders for the length of chosen word
         for (var i=0; i < answer.length; i++) {
-        display[i] = "_ ";
-        output = output + display[i];
-    }   
+            display[i] = "_ ";
+            output = output + display[i];
+    }  
     // inserts the placeholders on page
     document.getElementById("game").innerHTML = output;
     //reset the output
@@ -43,9 +41,20 @@ var layout = function() {
 }
 document.onkeyup = function(event) {
     var userKey = event.key.toUpperCase();
-    console.log(event);
+    output = "";
     userLetter = userKey;
     console.log("User Letter Chosen: " + userLetter)
+    for (var w=0; w < answer.length; w++) {
+        // alert(letters[w])
+        if (userLetter == letters[w]) {
+            display[w] = userLetter;
+            correct--;
+        }
+        output = output + display[w] + " ";
+        // output = "";
+        // guessesLeft--;
+     }
+     document.getElementById("game").innerHTML = output;
 }
 window.onload = function() {
     layout();
