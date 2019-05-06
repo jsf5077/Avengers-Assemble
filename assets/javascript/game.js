@@ -2,6 +2,12 @@ var word = ["IRON MAN", "CAPTAIN AMERICA", "MIGHTY THOR", "INCREDIBLE HULK", "BL
 var computerChoice = Math.floor(Math.random()*7);
 var answer = word[computerChoice];
 var wordLength = answer.length;
+var display = [wordLength];
+var victory = wordLength;
+var letters = answer.split('');
+var GuessesLeft = wordLength + 5;
+var output = "";
+var userLetter = "";
 var wins = 0;
 var losses = 0;
 
@@ -15,11 +21,26 @@ document.onkeyup = function(event) {
     var userChoice = event.key.toLowerCase();
     // alert to start game by key press 
     if (userChoice === "enter") {
-        console.log(answer);
+        // hide directions
         directionsText.textContent = "";
-        winsText.textContent = "wins: " + wins;
-        lossesText.textContent = "losses: " + losses;
+        // for loop that initiates game elements
+        // generates placeholders that matches the length of the chosen word 
+        for (var i=0; i < answer.length; i++) {
+            display[i] = "_ ";
+            output = output + display[i];
+        }
+    // inserts the placeholders on page
+    document.getElementById("game").innerHTML = output;
+    output ="";
+    // displays wins and losses
+    winsText.textContent = "wins: " + wins;
+    lossesText.textContent = "losses: " + losses;
     }
+        console.log(answer);
+        console.log(wordLength);
+        console.log(GuessesLeft);
+        console.log("wins: " + wins);
+        console.log("losses: " + losses);
 }
 
 // ***Start Game***
