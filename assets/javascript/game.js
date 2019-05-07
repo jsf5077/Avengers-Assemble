@@ -10,6 +10,7 @@ var output = "";
 var userLetter = "";
 var wins = 0;
 var losses = 0;
+var lettersGuessed = "";
 
 
 
@@ -28,6 +29,8 @@ var guessText = document.getElementById("guesses-left");
 
 
 var layout = function() {
+    //Declare an array for variable lettersGuessed
+    lettersGuessed = [];
     // displays wins, losses, and guesses left
     winsText.textContent = "Wins: " + wins;
     lossesText.textContent = "Losses: " + losses;
@@ -47,6 +50,8 @@ var layout = function() {
     }  
     // inserts the placeholders on page
     document.getElementById("game").innerHTML = output;
+    //writes initial letters guessed on page
+    document.getElementById("lettersGuessed").innerHTML = "--";
     //reset the output
     output ="";
 }
@@ -55,7 +60,7 @@ document.onkeyup = function(event) {
         var userKey = event.key.toUpperCase();
         output = "";
         userLetter = userKey;
-        console.log("User Letter Chosen: " + userLetter)
+        // console.log("User Letter Chosen: " + userLetter)
         for (var w=0; w < answer.length; w++) {
             if (userLetter == letters[w]) {
                 display[w] = userLetter;
@@ -81,6 +86,9 @@ document.onkeyup = function(event) {
         else {
             guessText.textContent = "Guesses Left: " + guessesLeft;
             console.log("Guesses Left: " + guessesLeft);
+            lettersGuessed.push(userLetter);
+            document.getElementById("letters-guessed").innerHTML = lettersGuessed.join(' ');
+            console.log("Letters guessed: " + userLetter);
         }
     document.getElementById("game").innerHTML = output;
     }
