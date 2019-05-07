@@ -11,6 +11,7 @@ var userLetter = "";
 var wins = 0;
 var losses = 0;
 
+
 // variables that hold references to places in the HTML
 var directionsText = document.getElementById("directions-text");
 var winsText = document.getElementById("wins-text");
@@ -32,7 +33,8 @@ var layout = function() {
     // creates underscore placeholders for the length of chosen word
         for (var i=0; i < answer.length; i++) {
             if (answer[i] === "*") {
-                display[i] = "&nbsp;&nbsp;&nbsp;&nbsp;";
+                //there's probably a better way, but it works. So until I find a better way...
+                display[i] = "&nbsp; &nbsp; &nbsp;";
             }
             else {
                 display[i] = "_ &nbsp;";
@@ -46,25 +48,27 @@ var layout = function() {
     output ="";
 }
 document.onkeyup = function(event) {
-    var userKey = event.key.toUpperCase();
-    output = "";
-    userLetter = userKey;
-    console.log("User Letter Chosen: " + userLetter)
-    for (var w=0; w < answer.length; w++) {
-        // alert(letters[w])
-        if (userLetter == letters[w]) {
-            display[w] = userLetter;
-            correct--;
-            console.log("letters remaining: " + correct);
+    if (event.keyCode >= 65 && event.keyCode <= 90) {
+        var userKey = event.key.toUpperCase();
+        output = "";
+        userLetter = userKey;
+        console.log("User Letter Chosen: " + userLetter)
+        for (var w=0; w < answer.length; w++) {
+            // alert(letters[w])
+            if (userLetter == letters[w]) {
+                display[w] = userLetter;
+                correct--;
+                console.log("letters remaining: " + correct);
+            }
+            output = output + display[w] + " ";
+            // output = "";
+            // guessesLeft--;
         }
-        output = output + display[w] + " ";
-        // output = "";
-        // guessesLeft--;
-     }
-     guessesLeft--;
-     guessText.textContent = "Guesses Left: " + guessesLeft;
-     console.log("Guesses Left: " + guessesLeft);
-     document.getElementById("game").innerHTML = output;
+        guessesLeft--;
+        guessText.textContent = "Guesses Left: " + guessesLeft;
+        console.log("Guesses Left: " + guessesLeft);
+        document.getElementById("game").innerHTML = output;
+    }
 }
 window.onload = function() {
     layout();
