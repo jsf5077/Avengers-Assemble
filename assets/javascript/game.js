@@ -87,7 +87,7 @@ document.onkeyup = function(event) {
             guessText.textContent = "Guesses Left: " + guessesLeft;
             console.log("Guesses Left: " + guessesLeft);
             lettersGuessed.push(userLetter);
-            document.getElementById("letters-guessed").innerHTML = lettersGuessed.join(' ');
+            document.getElementById("letters-guessed").innerHTML = lettersGuessed.join(', ');
             console.log("Letters guessed: " + userLetter);
         }
     document.getElementById("game").innerHTML = output;
