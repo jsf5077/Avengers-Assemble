@@ -1,4 +1,4 @@
-var word = ["IRONMAN", "CAPTAINAMERICA", "MIGHTYTHOR", "INCREDIBLEHULK", "BLACKWIDOW", "NICKFURY", "HAWKEYE"]
+var word = ["IRON*MAN", "CAPTAIN*AMERICA", "MIGHTY*THOR", "INCREDIBLE*HULK", "BLACK*WIDOW", "NICK*FURY", "HAWKEYE"]
 var computerChoice = Math.floor(Math.random()*7);
 var answer = word[computerChoice];
 var wordLength = answer.length;
@@ -31,7 +31,13 @@ var layout = function() {
     guessText.textContent = "Guesses Left: " + guessesLeft;
     // creates underscore placeholders for the length of chosen word
         for (var i=0; i < answer.length; i++) {
-            display[i] = "_ ";
+            if (answer[i] === "*") {
+                display[i] = "&nbsp;&nbsp;&nbsp;&nbsp;";
+            }
+            else {
+                display[i] = "_ &nbsp;";
+
+            }
             output = output + display[i];
     }  
     // inserts the placeholders on page
