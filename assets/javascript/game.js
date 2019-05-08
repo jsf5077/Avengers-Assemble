@@ -1,9 +1,10 @@
 var word = ["IRON*MAN", "CAPTAIN*AMERICA", "MIGHTY*THOR", "INCREDIBLE*HULK", "BLACK*WIDOW", "NICK*FURY", "HAWKEYE*"]
+var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 var computerChoice = Math.floor(Math.random()*7);
 var answer = word[computerChoice];
 var wordLength = answer.length;
 var display = [wordLength];
-var correct = wordLength;
+var correct = wordLength - 1;
 var letters = answer.split('');
 var guessesLeft = wordLength + 2; 
 var output = "";
@@ -24,12 +25,12 @@ var guessText = document.getElementById("guesses-left");
  //intial console logs 
  console.log(answer);
  console.log("WordLength: "+wordLength);
- console.log("guessesLeft: "+guessesLeft);
+ console.log("guesses left: "+guessesLeft);
  console.log("wins: " + wins);
  console.log("losses: " + losses);
 
 
-var gameStart = function() {
+ var gameStart = function() {
     //Declare an array for variable lettersGuessed
     lettersGuessed = [];
     // displays wins, losses, and guesses left
@@ -52,7 +53,7 @@ var gameStart = function() {
     // inserts the placeholders on page
     document.getElementById("game").innerHTML = output;
     //writes initial letters guessed on page
-    document.getElementById("lettersGuessed").innerHTML = "--";
+    document.getElementById("letters-guessed").innerHTML= "--";
     //reset the output
     output ="";
 }
@@ -64,12 +65,10 @@ function keyGuessed() {
     lettersGuessed.push(userLetter);
         document.getElementById("letters-guessed").innerHTML = lettersGuessed.join(', ');
         console.log("Letters guessed: " + userLetter);
-
-
 }
 
 function winCalc() {
-    if (correct === 1) {
+    if (correct < 1) {
         document.getElementById("victory").innerHTML = "YOU ARE VICTORIUS"
         wins++;
         winsText.textContent = "Wins: " + wins;
@@ -95,7 +94,7 @@ function winCalc() {
     }
 }   
 
-//function controls when 
+//function controls when key is pressed  
 document.onkeyup = function(event) {
     if (event.keyCode >= 65 && event.keyCode <= 90) {
         var userKey = event.key.toUpperCase();
@@ -122,6 +121,17 @@ window.onload = function() {
     gameStart();
 }
 
+
+
+
+// if (alphabet.indexOf(userLetter) > -1) {    
+//     for (var s = 0; i < wordLength; s++) {
+//         if (display[w] = userLetter) {
+//             document.getElementById("guess-message").innerHTML = "you've already guessed this letter!";
+//             guessesLeft.classList.add("text-warning");   
+//         }
+//         output = output + display[w] + " ";
+//     }
 
 
 
