@@ -57,6 +57,17 @@ var gameStart = function() {
     output ="";
 }
 
+//function determines if the game has been won, lost, or need to continue guessing
+//also controls the letters guessed
+
+function keyGuessed() {
+    lettersGuessed.push(userLetter);
+        document.getElementById("letters-guessed").innerHTML = lettersGuessed.join(', ');
+        console.log("Letters guessed: " + userLetter);
+
+
+}
+
 function winCalc() {
     if (correct === 1) {
         document.getElementById("victory").innerHTML = "YOU ARE VICTORIUS"
@@ -78,13 +89,13 @@ function winCalc() {
             return;
         }
         else {
-        lettersGuessed.push(userLetter);
-        document.getElementById("letters-guessed").innerHTML = lettersGuessed.join(', ');
-        console.log("Letters guessed: " + userLetter);
+        keyGuessed();
+        document.getElementById("game").innerHTML = output;
         }
     }
 }   
 
+//function controls when 
 document.onkeyup = function(event) {
     if (event.keyCode >= 65 && event.keyCode <= 90) {
         var userKey = event.key.toUpperCase();
