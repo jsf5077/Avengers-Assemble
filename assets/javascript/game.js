@@ -5,12 +5,13 @@ var wordLength = answer.length;
 var display = [wordLength];
 var correct = wordLength;
 var letters = answer.split('');
-var guessesLeft = wordLength + 5; 
+var guessesLeft = wordLength + 2; 
 var output = "";
 var userLetter = "";
 var wins = 0;
 var losses = 0;
 var lettersGuessed = "";
+
 
 
 
@@ -20,7 +21,7 @@ var winsText = document.getElementById("wins-text");
 var lossesText = document.getElementById("losses-text");
 var guessText = document.getElementById("guesses-left");
 
- //console logs 
+ //intial console logs 
  console.log(answer);
  console.log("WordLength: "+wordLength);
  console.log("guessesLeft: "+guessesLeft);
@@ -28,7 +29,7 @@ var guessText = document.getElementById("guesses-left");
  console.log("losses: " + losses);
 
 
-var layout = function() {
+var gameStart = function() {
     //Declare an array for variable lettersGuessed
     lettersGuessed = [];
     // displays wins, losses, and guesses left
@@ -55,6 +56,35 @@ var layout = function() {
     //reset the output
     output ="";
 }
+
+function winCalc() {
+    if (correct === 1) {
+        document.getElementById("victory").innerHTML = "YOU ARE VICTORIUS"
+        wins++;
+        winsText.textContent = "Wins: " + wins;
+        document.getElementById("game").innerHTML = output;
+    }
+    else if (guessesLeft < 1) {
+        document.getElementById("victory").innerHTML = "YOU HAVE BEEN DEFEATED!"
+        losses++;
+        lossesText.textContent = "Losses: " + losses;
+        document.getElementById("game").innerHTML = output;
+        guessText.textContent = "Guesses Left: " + 0;
+    }
+    else {
+        guessText.textContent = "Guesses Left: " + guessesLeft;
+        console.log("Guesses Left: " + guessesLeft);
+        if (lettersGuessed === userLetter) {
+            return;
+        }
+        else {
+        lettersGuessed.push(userLetter);
+        document.getElementById("letters-guessed").innerHTML = lettersGuessed.join(', ');
+        console.log("Letters guessed: " + userLetter);
+        }
+    }
+}   
+
 document.onkeyup = function(event) {
     if (event.keyCode >= 65 && event.keyCode <= 90) {
         var userKey = event.key.toUpperCase();
@@ -70,32 +100,15 @@ document.onkeyup = function(event) {
             output = output + display[w] + " ";
         }
         guessesLeft--;
-        if (correct === 1) {
-            document.getElementById("victory").innerHTML = "YOU ARE VICTORIUS"
-            wins++;
-            winsText.textContent = "Wins: " + wins;
-            document.getElementById("game").innerHTML = output;
-        }
-        else if (guessesLeft < 1) {
-            document.getElementById("victory").innerHTML = "YOU HAVE BEEN DEFEATED!"
-            losses++;
-            lossesText.textContent = "Losses: " + losses;
-            document.getElementById("game").innerHTML = output;
-            guessText.textContent = "Guesses Left: " + 0;
-        }
-        else {
-            guessText.textContent = "Guesses Left: " + guessesLeft;
-            console.log("Guesses Left: " + guessesLeft);
-            lettersGuessed.push(userLetter);
-            document.getElementById("letters-guessed").innerHTML = lettersGuessed.join(', ');
-            console.log("Letters guessed: " + userLetter);
-        }
-    document.getElementById("game").innerHTML = output;
+        winCalc();
     }
+    document.getElementById("game").innerHTML = output;
 }
 
+
+
 window.onload = function() {
-    layout();
+    gameStart();
 }
 
 
