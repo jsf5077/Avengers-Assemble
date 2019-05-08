@@ -125,7 +125,7 @@ window.onload = function() {
 
 
 // if (alphabet.indexOf(userLetter) > -1) {    
-//     for (var s = 0; i < wordLength; s++) {
+//     for (var s = 0; s < wordLength; s++) {
 //         if (display[w] = userLetter) {
 //             document.getElementById("guess-message").innerHTML = "you've already guessed this letter!";
 //             guessesLeft.classList.add("text-warning");   
