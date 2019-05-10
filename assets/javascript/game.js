@@ -16,6 +16,7 @@ var lettersGuessed = "";
 
 
 
+
 // variables that hold references to places in the HTML
 var directionsText = document.getElementById("directions-text");
 var winsText = document.getElementById("wins-text");
@@ -58,19 +59,19 @@ var guessText = document.getElementById("guesses-left");
 //function determines if the game has been won, lost, or need to continue guessing
 //also controls the letters guessed
 
-function keyGuessed() {
-    if (lettersGuessed.indexOf(userLetter) > -1) {    
-        for (var s = 0; s < wordLength; s++) {
-            document.getElementById("guess-message").innerHTML = "you've already guessed this letter!";
-            guessesLeft.classList.add("text-warning");   
-        }
-    }
-    else {
-        lettersGuessed.push(userLetter);
-        document.getElementById("letters-guessed").innerHTML = lettersGuessed.join(', ');
-        console.log("Letters guessed: " + userLetter);
-    }
-}
+// function keyGuessed() {
+//     if (lettersGuessed.indexOf(userLetter) > -1) {    
+//         for (var s = 0; s < wordLength; s++) {
+//             document.getElementById("guess-message").innerHTML = "you've already guessed this letter!";
+//             guessesLeft.classList.add("text-warning");   
+//         }
+//     }
+//     else {
+//         lettersGuessed.push(userLetter);
+//         document.getElementById("letters-guessed").innerHTML = lettersGuessed.join(', ');
+//         console.log("Letters guessed: " + userLetter);
+//     }
+// }
 
 // function winCalc() {
 //     if (correct < 1) {
@@ -164,15 +165,15 @@ var gameStart = function() {
     console.log("WordLength: "+wordLength);
     console.log("guesses left: "+guessesLeft);
 
-    if (lettersGuessed.indexOf(userLetter) > -1) {    
-        for (var s = 0; s < wordLength; s++) {
-            if (display[s] = userLetter) {
-                document.getElementById("guess-message").innerHTML = "you've already guessed this letter!";
-                guessesLeft.classList.add("text-warning");   
-            }
-        output = output + display[s] + " ";
-        }
-    }    
+    // if (lettersGuessed.indexOf(userLetter) > -1) {    
+    //     for (var s = 0; s < wordLength; s++) {
+    //         if (display[s] = userLetter) {
+    //             document.getElementById("guess-message").innerHTML = "you've already guessed this letter!";
+    //             guessesLeft.classList.add("text-warning");   
+    //         }
+    //     output = output + display[s] + " ";
+    //     }
+    // }    
 
     //Declare an array for variable lettersGuessed
     console.log("gameStart")
@@ -212,6 +213,8 @@ var gameStart = function() {
 
         //if key pressed matches a letter on the keyboard
         if (event.keyCode >= 65 && event.keyCode <= 90) {
+            //reset victory html
+            document.getElementById("victory").innerHTML = "";
             //variable userKey is equal to the letter pressed capitalized
             var userKey = event.key.toUpperCase();
             //output reset
@@ -226,15 +229,30 @@ var gameStart = function() {
                 if (userLetter == letters[w]) {
                     //change the index at the same display to equal the user guess
                     display[w] = userLetter;
+                    if (lettersGuessed.indexOf(userLetter) > -1) {
+                        document.getElementById("guess-message").innerHTML = "you've already guessed this letter!"; 
+                    }
+                    else {
                     //subtract from letters remaining
                     correct--;
+                    // gusesesLeft--;
                     console.log("letters remaining: " + correct);
+                    }
                 }
                 //change output to the display index value obtained from the if statement
                 output = output + display[w] + " ";
             }
-            // subtract from guesses left for the user
+            if (lettersGuessed.indexOf(userLetter) > -1) {
+                return;
+            }
+            else {
+            //subtract from letters remaining
             guessesLeft--;
+            // gusesesLeft--;
+            console.log("letters remaining: " + correct);
+            }
+            // subtract from guesses left for the user
+            
             // run winCalc function
             winCalc();
         }
@@ -279,7 +297,7 @@ var gameStart = function() {
             // if user is guessing a letter already guessed
             if (lettersGuessed === userLetter) {
                 //return nothing
-                return;
+                return;               
             }
             //otherwise...
             else {
@@ -288,6 +306,19 @@ var gameStart = function() {
             // update the game html
             document.getElementById("game").innerHTML = output;
             }
+        }
+        if (guessesLeft < correct) {
+            //update the html id victory to say the user lost
+            document.getElementById("victory").innerHTML = "YOU DON'T HAVE ENOUGH GUESSES TO FINISH THE WORD! DEFEATED!"
+            //update losses
+            losses++;
+            //display update to losses in html
+            lossesText.textContent = "Losses: " + losses;
+            //updates the value in the game html, but do I have to at this point?/////////////////////////////////////////////////////////// 
+            document.getElementById("game").innerHTML = output;
+            // update the guesses left to override the fact that there is a * value in the index
+            guessText.textContent = "Guesses Left: " + 0;
+            gameStart();
         }
         
     } 
@@ -300,8 +331,10 @@ var gameStart = function() {
             for (var s = 0; s < wordLength; s++) {
                 // update html id guess-message to tell them theyve already guessed this letter
                 document.getElementById("guess-message").innerHTML = "you've already guessed this letter!";
+            
                 // not sure if needed
-                // guessesLeft.classList.add("text-warning");   
+                // guessesLeft.classList.add("text-warning"); 
+                  
             }
         }
         // otherwise...
@@ -311,7 +344,9 @@ var gameStart = function() {
             //update the html id 
             document.getElementById("letters-guessed").innerHTML = lettersGuessed.join(', ');
             console.log("Letters guessed: " + userLetter);
+            document.getElementById("guess-message").innerHTML = "";
         }
+
     }
 }
 
