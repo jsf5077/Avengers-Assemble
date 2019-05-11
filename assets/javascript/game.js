@@ -2,7 +2,6 @@ var word = ["IRON*MAN", "CAPTAIN*AMERICA", "MIGHTY*THOR", "INCREDIBLE*HULK", "BL
 var wins = 0;
 var losses = 0;
 var lettersGuessed = "";
-var resetGame = 0;
 var endGame = false;
 
 
@@ -106,6 +105,8 @@ var gameStart = function() {
             gameStart();
             // output = "";
             endGame = false;
+            // update the html with the game id with the new output
+            document.getElementById("game2").innerHTML = output;
         } else {
             //if key pressed matches a letter on the keyboard
             if (event.keyCode >= 65 && event.keyCode <= 90) {
@@ -146,16 +147,17 @@ var gameStart = function() {
                 //subtract from letters remaining
                 guessesLeft--;
                 // gusesesLeft--;
-                console.log("letters remaining: " + correct);
+                // console.log("letters remaining: " + correct);
                 }
                 // subtract from guesses left for the user
                 
                 // run winCalc function
                 winCalc();
             }
-        }    
-        // update the html with the game id with the new output
+            // update the html with the game id with the new output
         document.getElementById("game").innerHTML = output;
+        }    
+        
     }
 
 
@@ -183,7 +185,6 @@ var gameStart = function() {
             document.getElementById("nextRd").innerHTML = "TO PLAY AGAIN, GUESS A RANDOM LETTER TO THE NEXT MYSTERY WORD.";
             if (event.keyCode >= 65 && event.keyCode <= 90) {
                 endGame = true;
-                output = "";
             }
         }
         //If the user ran out of guesses left...
@@ -198,10 +199,9 @@ var gameStart = function() {
             document.getElementById("game").innerHTML = output;
             // update the guesses left to override the fact that there is a * value in the index
             guessText.textContent = "Guesses Left: " + 0;
-            document.getElementById("nextRd").innerHTML = "TO PLAY AGAIN, GUESS A RANDOM LETTER TO THE NEXT MYSTERY WORD.";
+            document.getElementById("nextRd").innerHTML = "Press Any Key To Play Again.";
             if (event.keyCode >= 65 && event.keyCode <= 90) {
                 endGame = true;
-                output = "";
             }
         }
         // if the user still has guesses and there are still letters to guess in the word...
