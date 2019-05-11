@@ -4,33 +4,26 @@ var losses = 0;
 var lettersGuessed = "";
 var endGame = false;
 
-
-
-
-
 // variables that hold references to places in the HTML
 
 var winsText = document.getElementById("wins-text");
 var lossesText = document.getElementById("losses-text");
 var guessText = document.getElementById("guesses-left");
 
- 
+ //internal tracking for wins and losses
  console.log("wins: " + wins);
  console.log("losses: " + losses);
-
-
 
 // ***Start Game***
 window.onload = function() {
     gameStart();
 }
 
-
-//     computer picks a random name from Array
-    //Declare an array for variable lettersGuessed
+//Main Game Function
 var gameStart = function() {
     
     //Declare Variables
+    //computer picks a random name from Array
     var computerChoice = Math.floor(Math.random()*7);
     var answer = word[computerChoice];
     var wordLength = answer.length;
@@ -41,32 +34,27 @@ var gameStart = function() {
     var output = "";
     var userLetter = "";
 
+    // Initial external display for various html lines
     document.getElementById("directions-text").innerHTML = "Press any key to start";
     document.getElementById("victory").innerHTML = "";
     document.getElementById("nextRd").innerHTML = "";
     
-
     //intial console logs 
     console.log(answer);
     console.log("WordLength: "+wordLength);
     console.log("guesses left: "+guessesLeft);   
 
     //Declare an array for variable lettersGuessed
-    console.log("gameStart")
     lettersGuessed = [];
-    // displays wins, losses, and guesses left
+
+    // External displays for wins, losses, and guesses left
     winsText.textContent = "Wins: " + wins;
     lossesText.textContent = "Losses: " + losses;
     guessText.textContent = "Guesses Left: " + guessesLeft;
+
+    //run reset function to populate the game with the appropriate underscores/placeholders to the chosen word. 
     reset();
 
-
-//fff
-
-
-
-    
-    
     // creates underscore placeholders for the length of chosen word
     function reset( ) {    
         for (var i=0; i < answer.length; i++) {
@@ -79,44 +67,39 @@ var gameStart = function() {
             else {
                 //display an underscore with a space
                 display[i] = "_ &nbsp;";
-
             }
             // make output equal the the corresponding underscores and spaces from the for loop
             output = output + display[i];
         }    
-    }  
+    } 
+
     // inserts the output back to the div with game id
     document.getElementById("game").innerHTML = output;
     
     //initialize the letters-guessed id with two dashes before guesses get put in. 
     document.getElementById("letters-guessed").innerHTML= "--";
+
     //reset the output to equal nothing
     output ="";
-
-
-
-
-
-
-
-
-
 
     // ***user has to guess word***
     //function controls when key is pressed  
     document.onkeyup = function(event) {
+        //follow is else statement for between games. a toss away key before keys log as guesses for the next game. 
         if(endGame) {
             gameStart();
-            // output = "";
             endGame = false;
             // update the html with the game id with the new output
             document.getElementById("game2").innerHTML = output;
-        } else {
+        }
+        else {
             //if key pressed matches a letter on the keyboard
             if (event.keyCode >= 65 && event.keyCode <= 90) {
+                //clears directions
                 document.getElementById("directions-text").innerHTML = "";
                 //reset victory html
                 document.getElementById("victory").innerHTML = "";
+                //clears next round text
                 document.getElementById("nextRd").innerHTML = "";
                 //variable userKey is equal to the letter pressed capitalized
                 var userKey = event.key.toUpperCase();
@@ -124,7 +107,6 @@ var gameStart = function() {
                 output = "";
                 //global variable userLetter is set to equal local variable userKey
                 userLetter = userKey;
-                // console.log("User Letter Chosen: " + userLetter)
 
                 //for loop that funs for the length of answer
                 for (var w=0; w < answer.length; w++) {
@@ -151,30 +133,14 @@ var gameStart = function() {
                 else {
                 //subtract from letters remaining
                 guessesLeft--;
-                // gusesesLeft--;
-                // console.log("letters remaining: " + correct);
                 }
-                // subtract from guesses left for the user
-                
                 // run winCalc function
                 winCalc();
             }
             // update the html with the game id with the new output
         document.getElementById("game").innerHTML = output;
         }    
-        
     }
-
-
-
-
-
-
-
-
-
-
-
 
     //this determines in the user has completed the game 
     function winCalc() {
@@ -186,7 +152,7 @@ var gameStart = function() {
             wins++;
             //update the wins in the html
             winsText.textContent = "Wins: " + wins;
-            //updates the value in the game html, but do I have to at this point?///////////////////////////////////////////////////////////
+            //updates the value in the next round html
             document.getElementById("nextRd").innerHTML = "Press Any Key To Play Again.";
             if (event.keyCode >= 65 && event.keyCode <= 90) {
                 endGame = true;
@@ -200,7 +166,7 @@ var gameStart = function() {
             losses++;
             //display update to losses in html
             lossesText.textContent = "Losses: " + losses;
-            //updates the value in the game html, but do I have to at this point?/////////////////////////////////////////////////////////// 
+            //updates the value in the game html
             document.getElementById("game").innerHTML = output;
             // update the guesses left to override the fact that there is a * value in the index
             guessText.textContent = "Guesses Left: " + 0;
@@ -211,7 +177,7 @@ var gameStart = function() {
         }
         // if the user still has guesses and there are still letters to guess in the word...
         else {
-            //update guesses left... but not sure at the moment where its pulling that from/////////////////////////////////////////////////
+            //update guesses left
             guessText.textContent = "Guesses Left: " + guessesLeft;
             console.log("Guesses Left: " + guessesLeft);
             // if user is guessing a letter already guessed
@@ -221,23 +187,13 @@ var gameStart = function() {
             }
             //otherwise...
             else {
-            // run keyguessed function. should this be here?///////////////////////////////////////////////////////////////////////////////
+            // run keyguessed function
             keyGuessed();
             // update the game html
             document.getElementById("game").innerHTML = output;
             }
         }
     } 
-
-
-
-
-
-
-
-
-
-
 
     //supposed to determine if a letter has already been guessed
     function keyGuessed() {
@@ -253,12 +209,11 @@ var gameStart = function() {
         else {
             // enter the letter guessed by the user into lettersGuessed array
             lettersGuessed.push(userLetter);
-            //update the html id 
+            //update the html id, letters guessed, and clear guess message
             document.getElementById("letters-guessed").innerHTML = lettersGuessed.join(', ');
             console.log("Letters guessed: " + userLetter);
             document.getElementById("guess-message").innerHTML = "";
         }
-
     }
 }
 
