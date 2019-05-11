@@ -9,7 +9,7 @@ var endGame = false;
 
 
 // variables that hold references to places in the HTML
-var directionsText = document.getElementById("directions-text");
+
 var winsText = document.getElementById("wins-text");
 var lossesText = document.getElementById("losses-text");
 var guessText = document.getElementById("guesses-left");
@@ -40,6 +40,10 @@ var gameStart = function() {
     var guessesLeft = wordLength + 5; 
     var output = "";
     var userLetter = "";
+
+    document.getElementById("directions-text").innerHTML = "Press any key to start";
+    document.getElementById("victory").innerHTML = "";
+    document.getElementById("nextRd").innerHTML = "";
     
 
     //intial console logs 
@@ -110,6 +114,7 @@ var gameStart = function() {
         } else {
             //if key pressed matches a letter on the keyboard
             if (event.keyCode >= 65 && event.keyCode <= 90) {
+                document.getElementById("directions-text").innerHTML = "";
                 //reset victory html
                 document.getElementById("victory").innerHTML = "";
                 document.getElementById("nextRd").innerHTML = "";
@@ -176,13 +181,13 @@ var gameStart = function() {
         // if all the letters have been guessed
         if (correct < 1) {
             // display victory in html div id victory
-            document.getElementById("victory").innerHTML = "YOU ARE VICTORIOUS"
+            document.getElementById("victory").innerHTML = "YOU ARE VICTORIOUS";
             //update the wins variable by 1
             wins++;
             //update the wins in the html
             winsText.textContent = "Wins: " + wins;
             //updates the value in the game html, but do I have to at this point?///////////////////////////////////////////////////////////
-            document.getElementById("nextRd").innerHTML = "TO PLAY AGAIN, GUESS A RANDOM LETTER TO THE NEXT MYSTERY WORD.";
+            document.getElementById("nextRd").innerHTML = "Press Any Key To Play Again.";
             if (event.keyCode >= 65 && event.keyCode <= 90) {
                 endGame = true;
             }
@@ -190,7 +195,7 @@ var gameStart = function() {
         //If the user ran out of guesses left...
         else if (guessesLeft < 1) {
             //update the html id victory to say the user lost
-            document.getElementById("victory").innerHTML = "YOU HAVE BEEN DEFEATED!"
+            document.getElementById("victory").innerHTML = "YOU HAVE BEEN DEFEATED!";
             //update losses
             losses++;
             //display update to losses in html
