@@ -3,6 +3,7 @@ var wins = 0;
 var losses = 0;
 var lettersGuessed = "";
 var resetGame = 0;
+var endGame = false;
 
 
 
@@ -24,6 +25,8 @@ var guessText = document.getElementById("guesses-left");
 window.onload = function() {
     gameStart();
 }
+
+
 //     computer picks a random name from Array
     //Declare an array for variable lettersGuessed
 var gameStart = function() {
@@ -53,9 +56,17 @@ var gameStart = function() {
     lossesText.textContent = "Losses: " + losses;
     guessText.textContent = "Guesses Left: " + guessesLeft;
     reset();
+
+
+//fff
+
+
+
+    
     
     // creates underscore placeholders for the length of chosen word
-    function reset( ) {    for (var i=0; i < answer.length; i++) {
+    function reset( ) {    
+        for (var i=0; i < answer.length; i++) {
             //if the index value in answer equals * then displat three spaces.
             if (answer[i] === "*") {
                 //then display three spaces.
@@ -73,65 +84,89 @@ var gameStart = function() {
     }  
     // inserts the output back to the div with game id
     document.getElementById("game").innerHTML = output;
+    
     //initialize the letters-guessed id with two dashes before guesses get put in. 
     document.getElementById("letters-guessed").innerHTML= "--";
     //reset the output to equal nothing
     output ="";
 
 
+
+
+
+
+
+
+
+
     // ***user has to guess word***
     //function controls when key is pressed  
     document.onkeyup = function(event) {
+        if(endGame) {
+            gameStart();
+            // output = "";
+            endGame = false;
+        } else {
+            //if key pressed matches a letter on the keyboard
+            if (event.keyCode >= 65 && event.keyCode <= 90) {
+                //reset victory html
+                document.getElementById("victory").innerHTML = "";
+                document.getElementById("nextRd").innerHTML = "";
+                //variable userKey is equal to the letter pressed capitalized
+                var userKey = event.key.toUpperCase();
+                //output reset
+                output = "";
+                //global variable userLetter is set to equal local variable userKey
+                userLetter = userKey;
+                // console.log("User Letter Chosen: " + userLetter)
 
-        //if key pressed matches a letter on the keyboard
-        if (event.keyCode >= 65 && event.keyCode <= 90) {
-            //reset victory html
-            document.getElementById("victory").innerHTML = "";
-            document.getElementById("nextRd").innerHTML = "";
-            //variable userKey is equal to the letter pressed capitalized
-            var userKey = event.key.toUpperCase();
-            //output reset
-            output = "";
-            //global variable userLetter is set to equal local variable userKey
-            userLetter = userKey;
-            // console.log("User Letter Chosen: " + userLetter)
-
-            //for loop that funs for the length of answer
-            for (var w=0; w < answer.length; w++) {
-                //if the key pressed by the user equals one of the letters in the answer
-                if (userLetter == letters[w]) {
-                    //change the index at the same display to equal the user guess
-                    display[w] = userLetter;
-                    if (lettersGuessed.indexOf(userLetter) > -1) {
-                        document.getElementById("guess-message").innerHTML = "you've already guessed this letter!"; 
+                //for loop that funs for the length of answer
+                for (var w=0; w < answer.length; w++) {
+                    //if the key pressed by the user equals one of the letters in the answer
+                    if (userLetter == letters[w]) {
+                        //change the index at the same display to equal the user guess
+                        display[w] = userLetter;
+                        if (lettersGuessed.indexOf(userLetter) > -1) {
+                            document.getElementById("guess-message").innerHTML = "you've already guessed this letter!"; 
+                        }
+                        else {
+                        //subtract from letters remaining
+                        correct--;
+                        // gusesesLeft--;
+                        console.log("letters remaining: " + correct);
+                        }
                     }
-                    else {
-                    //subtract from letters remaining
-                    correct--;
-                    // gusesesLeft--;
-                    console.log("letters remaining: " + correct);
-                    }
+                    //change output to the display index value obtained from the if statement
+                    output = output + display[w] + " ";
                 }
-                //change output to the display index value obtained from the if statement
-                output = output + display[w] + " ";
+                if (lettersGuessed.indexOf(userLetter) > -1) {
+                    return;
+                }
+                else {
+                //subtract from letters remaining
+                guessesLeft--;
+                // gusesesLeft--;
+                console.log("letters remaining: " + correct);
+                }
+                // subtract from guesses left for the user
+                
+                // run winCalc function
+                winCalc();
             }
-            if (lettersGuessed.indexOf(userLetter) > -1) {
-                return;
-            }
-            else {
-            //subtract from letters remaining
-            guessesLeft--;
-            // gusesesLeft--;
-            console.log("letters remaining: " + correct);
-            }
-            // subtract from guesses left for the user
-            
-            // run winCalc function
-            winCalc();
-        }
+        }    
         // update the html with the game id with the new output
         document.getElementById("game").innerHTML = output;
     }
+
+
+
+
+
+
+
+
+
+
 
 
     //this determines in the user has completed the game 
@@ -145,11 +180,11 @@ var gameStart = function() {
             //update the wins in the html
             winsText.textContent = "Wins: " + wins;
             //updates the value in the game html, but do I have to at this point?///////////////////////////////////////////////////////////
-            
-            gameStart();
             document.getElementById("nextRd").innerHTML = "TO PLAY AGAIN, GUESS A RANDOM LETTER TO THE NEXT MYSTERY WORD.";
-            
-            
+            if (event.keyCode >= 65 && event.keyCode <= 90) {
+                endGame = true;
+                output = "";
+            }
         }
         //If the user ran out of guesses left...
         else if (guessesLeft < 1) {
@@ -164,8 +199,10 @@ var gameStart = function() {
             // update the guesses left to override the fact that there is a * value in the index
             guessText.textContent = "Guesses Left: " + 0;
             document.getElementById("nextRd").innerHTML = "TO PLAY AGAIN, GUESS A RANDOM LETTER TO THE NEXT MYSTERY WORD.";
-            gameStart();
-            
+            if (event.keyCode >= 65 && event.keyCode <= 90) {
+                endGame = true;
+                output = "";
+            }
         }
         // if the user still has guesses and there are still letters to guess in the word...
         else {
@@ -185,23 +222,17 @@ var gameStart = function() {
             document.getElementById("game").innerHTML = output;
             }
         }
-        if (guessesLeft < correct) {
-            //update the html id victory to say the user lost
-            document.getElementById("victory").innerHTML = "YOU DON'T HAVE ENOUGH GUESSES TO FINISH THE WORD! DEFEATED!";
-            //update losses
-            losses++;
-            //display update to losses in html
-            lossesText.textContent = "Losses: " + losses;
-            //updates the value in the game html, but do I have to at this point?/////////////////////////////////////////////////////////// 
-            document.getElementById("game").innerHTML = output;
-            // update the guesses left to override the fact that there is a * value in the index
-            guessText.textContent = "Guesses Left: " + 0;
-            gameStart();
-            document.getElementById("nextRd").innerHTML = "TO PLAY AGAIN, GUESS A RANDOM LETTER TO THE NEXT MYSTERY WORD.";
-            
-        }
-        
     } 
+
+
+
+
+
+
+
+
+
+
 
     //supposed to determine if a letter has already been guessed
     function keyGuessed() {
@@ -210,11 +241,7 @@ var gameStart = function() {
             // run for loop cycling through wordLength which is the same thing as answer.length    
             for (var s = 0; s < wordLength; s++) {
                 // update html id guess-message to tell them theyve already guessed this letter
-                document.getElementById("guess-message").innerHTML = "you've already guessed this letter!";
-            
-                // not sure if needed
-                // guessesLeft.classList.add("text-warning"); 
-                  
+                document.getElementById("guess-message").innerHTML = "you've already guessed this letter!";                  
             }
         }
         // otherwise...
