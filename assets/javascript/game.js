@@ -5,22 +5,22 @@ var lettersGuessed = "";
 var endGame = false;
 
 
-// //BONUS: image variables 
-// var i = document.getElementById("iron-man");
-// var t = document.getElementById("thor");
-// var h = document.getElementById("hulk");
-// var c = document.getElementById("cap");
-// var f = document.getElementById("fury");
-// var e = document.getElementById("hawkeye");
-// var w = document.getElementById("widow");
+//image variables 
+var i = document.getElementById("iron-man");
+var t = document.getElementById("thor");
+var h = document.getElementById("hulk");
+var c = document.getElementById("cap");
+var f = document.getElementById("fury");
+var e = document.getElementById("hawkeye");
+var w = document.getElementById("widow");
 
-// i.style.display = "none";
-// t.style.display = "none";
-// h.style.display = "none";
-// c.style.display = "none";
-// f.style.display = "none";
-// e.style.display = "none";
-// w.style.display = "none";
+i.style.display = "none";
+t.style.display = "none";
+h.style.display = "none";
+c.style.display = "none";
+f.style.display = "none";
+e.style.display = "none";
+w.style.display = "none";
 
 
 
@@ -173,28 +173,27 @@ var gameStart = function() {
             //update the wins in the html
             winsText.textContent = "Wins: " + wins;
             
-            // //bonus
-            // if (answer[0]){
-            //     i.style.display = "block"; 
-            // }
-            // if (answer[1]){
-            //     c.style.display = "block"; 
-            // }
-            // if (answer[2]){
-            //     t.style.display = "block"; 
-            // }
-            // if (answer[3]){
-            //     h.style.display = "block"; 
-            // }
-            // if (answer[4]){
-            //     w.style.display = "block"; 
-            // }
-            // if (answer[5]){
-            //     f.style.display = "block"; 
-            // }
-            // if (answer[6]){
-            //     e.style.display = "block"; 
-            // }
+            //bonus
+            if (answer==="IRON*MAN"){
+                i.style.display = "block"; 
+            } else if (answer==="CAPTAIN*AMERICA"){
+                c.style.display = "block"; 
+            }
+            else if (answer==="MIGHTY*THOR"){
+                t.style.display = "block"; 
+            }
+            else if (answer==="INCREDIBLE*HULK"){
+                h.style.display = "block"; 
+            }
+            else if (answer==="BLACK*WIDOW"){
+                w.style.display = "block"; 
+            }
+            else if (answer==="NICK*FURY"){
+                f.style.display = "block"; 
+            }
+            else if (answer==="HAWKEYE*"){
+                e.style.display = "block"; 
+            }
             //updates the value in the next round html
             document.getElementById("nextRd").innerHTML = "Press Any Key To Play Again.";
             if (event.keyCode >= 65 && event.keyCode <= 90) {
