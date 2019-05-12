@@ -3,87 +3,73 @@
   <head>
     <meta charset="UTF-8">
     <title>Word Guess Game</title>
+    <!--Linking reset css file-->
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <!-- viewport meta tag -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- link bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- linking js for bootstrap -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!--Linking css file-->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <!-- linking font -->
     <link href="https://fonts.googleapis.com/css?family=Coda:800" rel="stylesheet">
     
   </head>
+  <audio id="audio" src="../assets/The-Avengers-Theme-Song.mp3" ></audio>
   <body class="bg-dark">
-        <style>
-            p {
-            font-family: 'Coda', cursive;
-            font-size: 40px;
-            color: white;
-            opacity: 1;
-            }
-            h1 {
-              font-size: 500px
-            }
-            .bg_image {
-              background-image: url("https://pre00.deviantart.net/e157/th/pre/i/2015/115/c/3/the_avengers___banner_by_stormy94-d4uo6b2.jpg");
-              background-size: cover;
-              padding:6rem;
-              color: white;
-            }
-            h1 {
-              opacity: 0.6;
-            }
-            .web-image {
-              background-image: url("https://boygeniusreport.files.wordpress.com/2019/03/avengers-endgame-infinity-gauntlet.jpg?quality=98&strip=all&w=782");
-              background-size: cover;
-              background-repeat: none;
-              padding: 18rem;
-              opacity: .4;
-              float: left;
-            }
-            .content {
-              position: absolute;
-              left: 0;
-              right: 0;
-              margin-left: auto;
-              margin-right: auto;
-            }
-
-        </style>
-
-        <div class="jumbotron bg_image m-0" style=" font-family: 'Coda', cursive;">
-          <h1 class=" display-1 text-center">AVENGERS ASSEMBLE</h1>
+    <div class="jumbotron bg_image" style=" font-family: 'Coda', cursive;">
+      <h1 class="display-1 text-center">AVENGERS ASSEMBLE</h1>
+      <div id="musicControls" class="text-center">
+          <button class="btn btn-primary btn-xs theme-button" id="play">
+            <span class="fa fa-music"></span> Play Theme!</button>
+          <button class="btn btn-dark btn-xs pause-button" id="pause">
+            <span class="fa fa-pause"></span> Pause Song</button>
         </div>
+    </div>
 
-        <div class=" m-0">
-          <div class="web-image col-12"></div>
-          <div class="content row text-center">
-              <div class=" bg-dark p-2 col-12">
-                <p id="victory"></p>
-                <p id="defeat"></p>
-                <p id="directions-text"></p>
-              </div>
-              <div class="m-3"></div>
-              <div class="col-12 m-0">
-                <div class="row">
-                  <div class="col-4 text-center">
-                    <p id="wins-text"></p>
-                    <p id="losses-text"></p>
-                    <p id="guesses-left"></p>
-                    <p id="guess-message"></p>
-                  </div>
-                  <div class="col-8 text-center">
-                    <p id="game"></p>
-                    <p>Previous Game Word</p>
-                    <p id="game2"></p>
-                    <p id="nextRd"></p>
-                    <p id ="letters-guessed">--</p>
-                  </div>
-                </div>
-              </div>
+    <div class=" m-0">
+      <div class="web-image col-12"></div>
+      <div class="content row text-center">
+          <div class=" bg-dark p-2 col-12">
+            <p id="victory"></p>
+            <p id="defeat"></p>
+            <p id="directions-text"></p>
           </div>
-        </div>
+          <div class="m-3"></div>
+          <div class="col-12 m-0">
+            <div class="row">
+              <div class="col-4 text-center">
+                <p id="wins-text"></p>
+                <p id="losses-text"></p>
+                <p id="guesses-left"></p>
+                <p id="guess-message"></p>
+              </div>
+              <div class="col-8 text-center">
+                <p id="game"></p>
+                <p id="lastWord">Previous Game Word</p>
+                <p id="game2"></p>
+                <p id="nextRd"></p>
+                <p id ="letters-guessed">--</p>
+              </div>
+            </div>
+          </div>
+          <div  class="row">
+              <img src="/assets/images/hulk.png" id="hulk">
+              <img src="/assets/images/thor.png" id="thor">
+                <img src="/assets/images/iron-man.png" id="iron-man">
+                <img src="/assets/images/nick-fury.png" id="fury">
+                <img src="/assets/images/captain-america.png" id="cap">
+                <img src="/assets/images/hawkeye.png" id="hawkeye">
+                <img src="/assets/images/black-widow.png" id="widow">
+          </div>
+      </div>
+      
 
+    </div>
 
         <script type="text/javascript" src="assets/javascript/game.js"></script>
   </body>

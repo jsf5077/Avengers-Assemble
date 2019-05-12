@@ -216,4 +216,13 @@ var gameStart = function() {
         }
     }
 }
+document.getElementById("play").addEventListener("click", function(){
+    document.getElementById('audio').play();
+
+});
+
+document.getElementById("pause").addEventListener("click", function(){
+    document.getElementById('audio').pause();
+});
+
 

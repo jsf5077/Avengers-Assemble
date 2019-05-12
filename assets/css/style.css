@@ -1,0 +1,79 @@
+p {
+font-family: 'Coda', cursive;
+font-size: 40px;
+color: white;
+opacity: 1;
+}
+#lastWord {
+    font-size: 20px;
+}
+img {
+    height: 40vh;
+    position: fixed;
+    right: 6px;
+    bottom: 0px;
+}
+
+#thor {
+    right:0%; 
+}
+#thor {
+    right: 8%;
+    height: 42vh; 
+}
+#hulk {
+    right: 12%;
+    height: 50vh; 
+}
+#cap {
+    right: 43%; 
+}
+#fury {
+    right: 53%; 
+}
+#hawkeye {
+    right: 70%;
+    height: 55vh;
+    bottom: -15%;  
+}
+#widow {
+    right: 85%; 
+}
+
+h1 {
+    font-size: 500px
+}
+.bg_image {
+    background-image: url("../images/banner.jpg");
+    background-size: cover;
+    
+    min-height: 100%;
+    color: white;
+    background-repeat: no-repeat;
+	
+}
+h1 {
+    opacity: 0.6;
+}
+.web-image {
+    background-image: url("../images/background.jpg");
+    background-size: cover;
+    min-height: 100%;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	background-size: cover;
+    padding: 30%;
+    opacity: .4;
+    float: left;
+    height: 100vh;
+    
+}
+.content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
