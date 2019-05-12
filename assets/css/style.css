@@ -10,23 +10,27 @@ opacity: 1;
 img {
     height: 40vh;
     position: fixed;
-    right: 6px;
-    bottom: 0px;
+    
+    margin-bottom: 0px;
+    top: 65%;
 }
 
-#thor {
-    right:0%; 
+#iron-man {
+    right:29%; 
 }
 #thor {
-    right: 8%;
-    height: 42vh; 
+    right: 10%;
+    height: 65vh;
+    top: 65%; 
 }
 #hulk {
-    right: 12%;
-    height: 50vh; 
+    right: -3%;
+    height: 70vh;
+    top: 60%;
+     
 }
 #cap {
-    right: 43%; 
+    right: 45%; 
 }
 #fury {
     right: 53%; 
