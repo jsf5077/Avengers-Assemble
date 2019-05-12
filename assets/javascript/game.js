@@ -172,27 +172,57 @@ var gameStart = function() {
             wins++;
             //update the wins in the html
             winsText.textContent = "Wins: " + wins;
-            
+            var endOfGame = 7;
             //bonus
             if (answer==="IRON*MAN"){
-                i.style.display = "block"; 
+                i.style.display = "block";
+                endOfGame--;
+                // word.splice(0, 1)
+                // computerChoice--;
+                // console.log(computerChoice)  
             } else if (answer==="CAPTAIN*AMERICA"){
-                c.style.display = "block"; 
+                c.style.display = "block";
+                endOfGame--;
+                // word.splice(1, 1)
+                // computerChoice--;
+                // console.log(computerChoice)   
             }
             else if (answer==="MIGHTY*THOR"){
-                t.style.display = "block"; 
+                t.style.display = "block";
+                endOfGame--; 
+                // word.splice(2, 1)
+                // computerChoice--;
+                // console.log(computerChoice)  
             }
             else if (answer==="INCREDIBLE*HULK"){
-                h.style.display = "block"; 
+                h.style.display = "block";
+                endOfGame--; 
+                // word.splice(3, 1)
+                // computerChoice--; 
+                // console.log(computerChoice) 
             }
             else if (answer==="BLACK*WIDOW"){
-                w.style.display = "block"; 
+                w.style.display = "block";
+                endOfGame--;
+                // word.splice(4, 1)
+                // computerChoice--;
+                // console.log(computerChoice)   
             }
             else if (answer==="NICK*FURY"){
-                f.style.display = "block"; 
+                f.style.display = "block";
+                endOfGame--;
+                // word.splice(5, 1)
+                // computerChoice--;
+                // console.log(computerChoice)   
             }
             else if (answer==="HAWKEYE*"){
-                e.style.display = "block"; 
+                e.style.display = "block";
+                endOfGame--;
+                // word.splice(6, 1)
+                // computerChoice--;
+                // console.log(computerChoice)  
+            } else if (endOfGame === 0 ){
+                document.getElementById("victory").innerHTML = "AVENGERS ASSEMBLED! THANKS FOR PLAYING";
             }
             //updates the value in the next round html
             document.getElementById("nextRd").innerHTML = "Press Any Key To Play Again.";
