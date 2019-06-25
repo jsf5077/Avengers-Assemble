@@ -1,7 +1,7 @@
 # Avengers Assemble!
 
 
-https://jsf5077.github.io/Word-Guess-Game/
+https://jsf5077.github.io/Avengers-Assemble/
 
 Welcome to a classic game of Hangman, with with a "Marvel"ous twist. Can you assemble all of the Avengers and stop Thanos?
 
