@@ -12,6 +12,7 @@ img {
     position: fixed;
     margin-bottom: 0px;
     top: 65%;
+    z-index: -1;
 }
 
 #iron-man {
@@ -70,6 +71,7 @@ h1 {
     opacity: .4;
     float: left;
     height: 100vh;
+    z-index: -2;
     
 }
 .content {

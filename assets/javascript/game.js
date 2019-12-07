@@ -23,6 +23,28 @@ e.style.display = "none";
 w.style.display = "none";
 
 
+//virtual buttons
+letters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+
+function renderLetters() {
+    $("#buttons-view").empty();
+
+    //create a for loop to generate buttons in the array
+    for (var i = 0; i < letters.length; i++) {
+
+        //generate buttons for each play in the array using jquery.
+        var a = $("<button class='btn btn-dark btn-xs m-1'>");
+        // Add a class
+        a.addClass("playButton");
+        // Add a data-attribute with a value of the play at index i
+        a.attr("data-name", letters[i]);
+        // Create the button's text with a value of the play at index i
+        a.text(letters[i]);
+        // Add the button to the HTML
+        $("#buttons-view").append(a);
+    }
+}
+
 
 // variables that hold references to places in the HTML
 
@@ -37,6 +59,8 @@ var guessText = document.getElementById("guesses-left");
 // ***Start Game***
 window.onload = function() {
     gameStart();
+    renderLetters();
+
 }
 
 //Main Game Function
@@ -108,6 +132,7 @@ var gameStart = function() {
         //follow is else statement for between games. a toss away key before keys log as guesses for the next game. 
         if(endGame) {
             gameStart();
+            renderLetters();
             endGame = false;
             // update the html with the game id with the new output
             document.getElementById("game2").innerHTML = output;
@@ -128,7 +153,7 @@ var gameStart = function() {
                 //global variable userLetter is set to equal local variable userKey
                 userLetter = userKey;
 
-                //for loop that funs for the length of answer
+                //for loop that runs for the length of answer
                 for (var w=0; w < answer.length; w++) {
                     //if the key pressed by the user equals one of the letters in the answer
                     if (userLetter == letters[w]) {
