@@ -3,10 +3,11 @@ var wins = 0;
 var losses = 0;
 var lettersGuessed = "";
 var endGame = false;
+var endOfGame = 7;
 
 
 //image variables 
-var i = document.getElementById("iron-man");
+var m = document.getElementById("iron-man");
 var t = document.getElementById("thor");
 var h = document.getElementById("hulk");
 var c = document.getElementById("cap");
@@ -14,7 +15,7 @@ var f = document.getElementById("fury");
 var e = document.getElementById("hawkeye");
 var w = document.getElementById("widow");
 
-i.style.display = "none";
+m.style.display = "none";
 t.style.display = "none";
 h.style.display = "none";
 c.style.display = "none";
@@ -29,10 +30,10 @@ letters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","
 function renderLetters() {
     $("#buttons-view").empty();
 
-    //create a for loop to generate buttons in the array
+    //create a for loop to generate buttons in the worday
     for (var i = 0; i < letters.length; i++) {
 
-        //generate buttons for each play in the array using jquery.
+        //generate buttons for each play in the worday using jquery.
         var a = $("<button class='btn btn-dark btn-xs m-1'>");
         // Add a class
         a.addClass("playButton");
@@ -67,8 +68,8 @@ window.onload = function() {
 var gameStart = function() {
     
     //Declare Variables
-    //computer picks a random name from Array
-    var computerChoice = Math.floor(Math.random()*7);
+    //computer picks a random name from word
+    var computerChoice = Math.floor(Math.random()*endOfGame);
     var answer = word[computerChoice];
     var wordLength = answer.length;
     var display = [wordLength];
@@ -77,6 +78,7 @@ var gameStart = function() {
     var guessesLeft = wordLength + 5; 
     var output = "";
     var userLetter = "";
+    console.log(word);
 
     // Initial external display for various html lines
     document.getElementById("directions-text").innerHTML = "Press any key to start";
@@ -88,7 +90,7 @@ var gameStart = function() {
     console.log("WordLength: "+wordLength);
     console.log("guesses left: "+guessesLeft);   
 
-    //Declare an array for variable lettersGuessed
+    //Declare an worday for variable lettersGuessed
     lettersGuessed = [];
 
     // External displays for wins, losses, and guesses left
@@ -197,58 +199,90 @@ var gameStart = function() {
             wins++;
             //update the wins in the html
             winsText.textContent = "Wins: " + wins;
-            var endOfGame = 7;
+
+            function endGameCheck () {
+                endOfGame--;
+                if (endOfGame === 0 ){
+                    document.getElementById("victory").innerHTML = "AVENGERS ASSEMBLED! THANKS FOR PLAYING";
+                    document.getElementById("nextRd").innerHTML = "Assembled!";
+                }
+
+            }
+            
             //bonus
             if (answer==="IRON*MAN"){
-                i.style.display = "block";
-                endOfGame--;
-                // word.splice(0, 1)
-                // computerChoice--;
-                // console.log(computerChoice)  
-            } else if (answer==="CAPTAIN*AMERICA"){
-                c.style.display = "block";
-                endOfGame--;
-                // word.splice(1, 1)
-                // computerChoice--;
-                // console.log(computerChoice)   
+                m.style.display = "block";
+                for( var i = 0; i < word.length; i++){ 
+                    if ( word[i] === "IRON*MAN") {
+                      word.splice(i, 1); 
+                    }
+                }
+                endGameCheck();
             }
+
+            else if (answer==="CAPTAIN*AMERICA"){
+                c.style.display = "block";
+                for( var i = 0; i < word.length; i++){ 
+                    if ( word[i] === "CAPTAIN*AMERICA") {
+                      word.splice(i, 1); 
+                    }
+                }
+                endGameCheck();
+            }
+
             else if (answer==="MIGHTY*THOR"){
                 t.style.display = "block";
-                endOfGame--; 
-                // word.splice(2, 1)
-                // computerChoice--;
-                // console.log(computerChoice)  
+                for( var i = 0; i < word.length; i++){ 
+                    if ( word[i] === "MIGHTY*THOR") {
+                      word.splice(i, 1); 
+                    }
+                }
+                endGameCheck();
             }
+
             else if (answer==="INCREDIBLE*HULK"){
                 h.style.display = "block";
-                endOfGame--; 
-                // word.splice(3, 1)
-                // computerChoice--; 
-                // console.log(computerChoice) 
+                for( var i = 0; i < word.length; i++){ 
+                    if ( word[i] === "INCREDIBLE*HULK") {
+                      word.splice(i, 1); 
+                    }
+                }
+                endGameCheck();
             }
+
             else if (answer==="BLACK*WIDOW"){
                 w.style.display = "block";
-                endOfGame--;
-                // word.splice(4, 1)
-                // computerChoice--;
-                // console.log(computerChoice)   
+                for( var i = 0; i < word.length; i++){ 
+                    if ( word[i] === "BLACK*WIDOW") {
+                      word.splice(i, 1); 
+                    }
+                }
+                endGameCheck();
             }
+
             else if (answer==="NICK*FURY"){
                 f.style.display = "block";
-                endOfGame--;
-                // word.splice(5, 1)
-                // computerChoice--;
-                // console.log(computerChoice)   
+                for( var i = 0; i < word.length; i++){ 
+                    if ( word[i] === "NICK*FURY") {
+                      word.splice(i, 1); 
+                    }
+                }
+                endGameCheck();
             }
+
             else if (answer==="HAWKEYE*"){
                 e.style.display = "block";
-                endOfGame--;
-                // word.splice(6, 1)
-                // computerChoice--;
-                // console.log(computerChoice)  
-            } else if (endOfGame === 0 ){
-                document.getElementById("victory").innerHTML = "AVENGERS ASSEMBLED! THANKS FOR PLAYING";
-            }
+                for( var i = 0; i < word.length; i++){ 
+                    if ( word[i] === "HAWKEYE*") {
+                      word.splice(i, 1); 
+                    }
+                }
+                endGameCheck();
+
+                 
+            } //else if (endOfGame === 0 ){
+            //     document.getElementById("victory").innerHTML = "AVENGERS ASSEMBLED! THANKS FOR PLAYING";
+            // }
             //updates the value in the next round html
             document.getElementById("nextRd").innerHTML = "Press Any Key To Play Again.";
             if (event.keyCode >= 65 && event.keyCode <= 90) {
@@ -304,7 +338,7 @@ var gameStart = function() {
         }
         // otherwise...
         else {
-            // enter the letter guessed by the user into lettersGuessed array
+            // enter the letter guessed by the user into lettersGuessed worday
             lettersGuessed.push(userLetter);
             //update the html id, letters guessed, and clear guess message
             document.getElementById("letters-guessed").innerHTML = lettersGuessed.join(', ');
